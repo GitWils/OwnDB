@@ -29,9 +29,7 @@ struct employee * addEmployee(char *name)
 	struct employee *pempl;
 	int name_size;
 	name_size = (int)strlen(name)+1;
-	printf("%s занимает %d букв ", name, name_size);
 	pempl = malloc(sizeof(struct employee)+name_size*(int)sizeof(char));
-	printf("%zu байт\n", sizeof(*pempl));
 	if (pempl == NULL)
 		exit (1);
 	strncpy(pempl->fname, name, 39);

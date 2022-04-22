@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h> //strchr()
 #include "employees.h"
+#include "save.h"
 
 char * s_gets(char *st, int n);
 
@@ -11,12 +12,16 @@ int main(void)
 	addEmployee("Юрій Леонідович");
 	addEmployee("Solia");
 	a = getFirst();
-	do {
-		printf("%s структура занимает %zu байт\n", a->fname, sizeof(*a));
+	for(int i = 0; i < getCount(); i++)
+	{
+		printf("%s структура занимает %zu байт", a->fname, sizeof(*a));
+		printf(" + %ld байт занимает имя\n",
+					(strlen(a->fname) + 1)*(unsigned long)sizeof(char));
 		a = getNext(a);
 	}
-	while(a);
 	printf("count = %d\n", getCount());
+	a = getFirst(a);
+	saveList(a);
 	clearEmployee();
 
 	return 0;
