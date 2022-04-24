@@ -43,7 +43,6 @@ struct employee * loadList(void)
 		pempl = malloc(sizeof(struct employee)+a*(int)sizeof(char));
 		fread(pempl, sizeof(struct employee) + sizeof(char)*a, 1, pfile);
 		preturn = addEmployee(pempl->fname);
-		//free(pempl);
 	}
 	preturn = getFirst();
 	return preturn;
