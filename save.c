@@ -7,20 +7,44 @@
 void saveList(struct employee *empl)
 {
 	FILE *pfile;
-	if((pfile = fopen("empl.dat", "a+b")) == NULL)
+	if((pfile = fopen("empl.dat", "wb")) == NULL)
 	{
 		fputs("Can't open file empl.dat\n", stderr);
 		exit(1);
 	}
 	rewind(pfile);
+	empl = getFirst();
 	for(int i = 0; i < getCount(); i++)
 	{
+		long unsigned a;
+		a = strlen(empl->fname) + 1;
+		fwrite(&a, sizeof(long unsigned), 1, pfile);
 		fwrite(empl, sizeof(struct employee) + 
-				strlen(empl->fname + 1)*(int)sizeof(char), 1, pfile);
-		//printf("%s\n", empl->fname);
+				sizeof(char)*(int)(strlen(empl->fname)+1), 1, pfile);
 		empl = getNext(empl); 
 	}
 
 	fclose(pfile);
-	printf("\nsave.c file was here\n");
+	//printf("\nsave.c file was here\n");
+}
+
+struct employee * loadList(void)
+{
+	struct employee *pempl, *preturn;
+	FILE *pfile;
+	if((pfile = fopen("empl.dat", "rb")) == NULL)
+	{
+		return NULL;
+	}
+	rewind(pfile);
+	long unsigned a;
+	while(fread(&a, sizeof(unsigned long), 1, pfile))
+	{
+		pempl = malloc(sizeof(struct employee)+a*(int)sizeof(char));
+		fread(pempl, sizeof(struct employee) + sizeof(char)*a, 1, pfile);
+		preturn = addEmployee(pempl->fname);
+		//free(pempl);
+	}
+	preturn = getFirst();
+	return preturn;
 }

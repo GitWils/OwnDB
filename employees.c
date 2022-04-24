@@ -25,14 +25,18 @@ struct employee * getNext(struct employee *empl)
 //add employee to begin
 struct employee * addEmployee(char *name)
 {
-
 	struct employee *pempl;
-	int name_size;
-	name_size = (int)strlen(name)+1;
-	pempl = malloc(sizeof(struct employee)+name_size*(int)sizeof(char));
+	size_t name_size;
+	name_size = strlen(name)+1;
+	if(name_size > 40)	
+	{
+		*(name+39) = '\0';
+		name_size = 40;
+	}	
+	pempl = malloc(sizeof(struct employee)+name_size*sizeof(char));
 	if (pempl == NULL)
 		exit (1);
-	strncpy(pempl->fname, name, 39);
+	strncpy(pempl->fname, name, 40);
 	pempl->pnext = phead;
 	phead = pempl;
 	cnt++;

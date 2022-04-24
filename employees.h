@@ -1,3 +1,4 @@
+#pragma once
 struct employee {	
 	struct employee *pnext;
 	char fname[];

@@ -6,21 +6,22 @@
 char * s_gets(char *st, int n);
 
 int main(void)
-{
+{	
 	struct employee *a;
-	addEmployee("Ksenka");
-	addEmployee("Юрій Леонідович");
-	addEmployee("Solia");
-	a = getFirst();
-	for(int i = 0; i < getCount(); i++)
-	{
-		printf("%s структура занимает %zu байт", a->fname, sizeof(*a));
-		printf(" + %ld байт занимает имя\n",
-					(strlen(a->fname) + 1)*(unsigned long)sizeof(char));
-		a = getNext(a);
+	a = loadList();
+	if(getCount())
+	{		
+		printf("Loaded structures fnames is:\n");
+		for(int i = 0; i < getCount(); i++)
+		{
+			printf("%s\n", a->fname);
+			a = getNext(a);
+		}
 	}
-	printf("count = %d\n", getCount());
-	a = getFirst(a);
+	//addEmployee("Ksenka");
+	//addEmployee("Юрій Леонідович");
+	//addEmployee("Solia");
+	printf("cnt = %d\n", getCount());
 	saveList(a);
 	clearEmployee();
 
