@@ -7,14 +7,14 @@
 #include "view.h"
 #include "controller.h"
 
-enum cmdList {help, quit};
-const char * strCmdList[] = {"help", "quit"};
+enum cmdList {help, list, add, del, quit};
+const char * strCmdList[] = {"help", "list", "add", "del", "quit"};
 
 int main(void)
 {	
-	struct employee *pobjA;
-	pobjA = loadList();
-	int iCmdLength = 10;
+	struct employee *pobjEmplList;
+	pobjEmplList = loadList();
+	const int iCmdLength = 10;
 	char strChoice[iCmdLength];
 	enum cmdList eCommand;
 	bool bIsCmd = false;
@@ -45,13 +45,23 @@ int main(void)
 		{
 			switch(eCommand)
 			{
+
 				case help:					
 					showHelpMsg();
-					bIsCmd = false;
+					break;
+				case list:
+					showListMsg(pobjEmplList);
+					break;
+				case add:
+					showAddMsg();
+					break;
+				case del:
+					showDelMsg();
 					break;
 				default:
 					break;
 			}
+			bIsCmd = false;
 		}
 		else
 		{
@@ -62,7 +72,7 @@ int main(void)
 	//addEmployee("Ksenka");
 	//addEmployee("Юрій Леонідович");
 	//addEmployee("Solia");
-	saveList(pobjA);
+	saveList(pobjEmplList);
 	clearEmployee();
 	showQuitMsg();
 
