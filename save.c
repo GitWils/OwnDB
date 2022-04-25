@@ -9,7 +9,7 @@ void saveList(struct employee *empl)
 	FILE *pfile;
 	if((pfile = fopen("empl.dat", "wb")) == NULL)
 	{
-		fputs("Can't open file empl.dat\n", stderr);
+		fputs("Can't open file \"empl.dat\"\n", stderr);
 		exit(1);
 	}
 	rewind(pfile);
@@ -34,6 +34,7 @@ struct employee * loadList(void)
 	FILE *pfile;
 	if((pfile = fopen("empl.dat", "rb")) == NULL)
 	{
+		fprintf(stderr, "Can't open file \"empl.dat\"\n");
 		return NULL;
 	}
 	rewind(pfile);
@@ -44,6 +45,20 @@ struct employee * loadList(void)
 		fread(pempl, sizeof(struct employee) + sizeof(char)*a, 1, pfile);
 		preturn = addEmployee(pempl->fname);
 	}
+	fclose(pfile);
 	preturn = getFirst();
 	return preturn;
+}
+
+void logAddEmpl(char *name)
+{
+	fprintf(stderr, "Employee \"%s\" was added successfully\n", name);
+	FILE *pfile;
+	if((pfile = fopen("log.txt", "a")) == NULL)
+	{
+		fprintf(stderr, "Can't open file \"log.txt\"\n");
+		exit(2);
+	}
+	fprintf(pfile, "Employee \"%s\" was added\n", name);
+	fclose(pfile);
 }

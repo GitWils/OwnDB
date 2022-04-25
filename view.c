@@ -26,7 +26,6 @@ void showListMsg(struct employee *empl)
 		empl = getNext(empl);
 	}
 	printf("------------------------------------------------------\n");
-	showInvitationMsg(true);
 }
 
 void showByWidth(const char *str, int width)
@@ -57,12 +56,12 @@ void showByWidth(const char *str, int width)
 
 void showAddMsg()
 {
-
+	printf("Write the first name:\n");
 }
 
 void showDelMsg()
 {
-
+	printf("Write the number of the employee you want to delete:\n");
 }
 
 void showQuitMsg()
@@ -72,16 +71,17 @@ void showQuitMsg()
 
 void showWrongMsg(char *msg)
 {
-	printf("Command \"%s\" is unknown.\n", msg);
+	printf("Unknown command \"%s\".\n", msg);
 }
 
 void showHelpMsg()
 {
-	printf("List of commands:\n\n");
+	printf("List of possible commands:\n\n");
 	printf("help - help menu\n");
 	printf("list - show list of all entries\n");
 	printf("add - add a new record\n");
 	printf("del - delete entry\n");
-	printf("...\nfew another commands is developing for now\n...\n");
-	printf("quit - exit from program\n");
+	printf("sort - sorting list by names\n");
+	printf("quit - exit from program\n\n");
+	printf("Make your choice.\n");
 }

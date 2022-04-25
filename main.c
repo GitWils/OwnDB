@@ -7,8 +7,8 @@
 #include "view.h"
 #include "controller.h"
 
-enum cmdList {help, list, add, del, quit};
-const char * strCmdList[] = {"help", "list", "add", "del", "quit"};
+enum cmdList {help, list, add, del, sort, quit};
+const char * strCmdList[] = {"help", "list", "add", "del","sort", "quit"};
 
 int main(void)
 {	
@@ -16,6 +16,8 @@ int main(void)
 	pobjEmplList = loadList();
 	const int iCmdLength = 10;
 	char strChoice[iCmdLength];
+	const int iFNameLength = 40;
+	char strFName[iFNameLength];
 	enum cmdList eCommand;
 	bool bIsCmd = false;
 	/*if(getCount())
@@ -45,7 +47,6 @@ int main(void)
 		{
 			switch(eCommand)
 			{
-
 				case help:					
 					showHelpMsg();
 					break;
@@ -54,6 +55,13 @@ int main(void)
 					break;
 				case add:
 					showAddMsg();
+					if(s_gets(strFName, iFNameLength))
+					{
+						addEmployee(strFName);
+						logAddEmpl(strFName);
+					}
+					break;
+				case sort:
 					break;
 				case del:
 					showDelMsg();
@@ -66,8 +74,9 @@ int main(void)
 		else
 		{
 			showWrongMsg(strChoice);
-			showInvitationMsg(false);
 		}
+		if(eCommand != help)
+			showInvitationMsg(true);
 	}
 	//addEmployee("Ksenka");
 	//addEmployee("Юрій Леонідович");
