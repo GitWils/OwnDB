@@ -20,7 +20,7 @@ void showListMsg(struct employee *empl)
 	printf("------------------------------------------------------\n");
 	for(int i = 0; i < getCount(); i++)
 	{
-		printf("|%4d   |", i);
+		printf("|%4d   |", i + 1);
 		showByWidth(empl->fname, 40);
 		printf("|\n");
 		empl = getNext(empl);

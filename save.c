@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "employees.h"
 #include "save.h"
 
@@ -10,7 +11,7 @@ void saveList(struct employee *empl)
 	if((pfile = fopen("empl.dat", "wb")) == NULL)
 	{
 		fputs("Can't open file \"empl.dat\"\n", stderr);
-		exit(1);
+		return;
 	}
 	rewind(pfile);
 	empl = getFirst();
@@ -57,8 +58,23 @@ void logAddEmpl(char *name)
 	if((pfile = fopen("log.txt", "a")) == NULL)
 	{
 		fprintf(stderr, "Can't open file \"log.txt\"\n");
-		exit(2);
+		return;
 	}
-	fprintf(pfile, "Employee \"%s\" was added\n", name);
+
+	char strTime[30];
+	getTimeStamp(strTime);
+	fprintf(pfile, "Employee \"%s\" was added %s\n", 
+			name, strTime);
 	fclose(pfile);
+}
+
+void getTimeStamp(char *str)
+{
+	struct tm *pobjTime;
+	time_t t;
+	t = time(NULL);
+	pobjTime = localtime(&t);
+	sprintf(str, "%d.%d.%d %d:%d:%d",
+			pobjTime->tm_mday, pobjTime->tm_mon,pobjTime->tm_year + 1900, 
+			pobjTime->tm_hour, pobjTime->tm_min, pobjTime->tm_sec);
 }

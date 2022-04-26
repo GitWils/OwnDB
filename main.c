@@ -8,7 +8,7 @@
 #include "controller.h"
 
 enum cmdList {help, list, add, del, sort, quit};
-const char * strCmdList[] = {"help", "list", "add", "del","sort", "quit"};
+const char * strCmdList[] = {"help", "list", "add", "del", "sort", "quit"};
 
 int main(void)
 {	
@@ -20,16 +20,7 @@ int main(void)
 	char strFName[iFNameLength];
 	enum cmdList eCommand;
 	bool bIsCmd = false;
-	/*if(getCount())
-	{		
-		printf("Loaded structures fnames is:\n");
-		for(int i = 0; i < getCount(); i++)
-		{
-			printf("%s\n", pobjA->fname);
-			pobjA = getNext(pobjA);
-		}
-	}*/
-	
+
 	showInvitationMsg(true);
 	while(eCommand != quit 
 				&&s_gets(strChoice, iCmdLength) != NULL 
@@ -78,9 +69,6 @@ int main(void)
 		if(eCommand != help)
 			showInvitationMsg(true);
 	}
-	//addEmployee("Ksenka");
-	//addEmployee("Юрій Леонідович");
-	//addEmployee("Solia");
 	saveList(pobjEmplList);
 	clearEmployee();
 	showQuitMsg();

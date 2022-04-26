@@ -10,12 +10,21 @@ char * s_gets(char *st, int n)
 	ret_val = fgets(st, n, stdin);
 	if(ret_val)
 	{
+
 		find = strchr(st, '\n');
 		if(find)
 			*find = '\0';
 		else
 			while(getchar() != '\n')
 				continue;
+	}
+	//trim stroke
+	n = strlen(st);
+	n--;
+	while(n >= 0 && (*(st+n) == ' ' || *(st+n) == '\n'))
+	{
+		*(st+n) = '\0';
+		n--;
 	}
 	return ret_val;
 }
