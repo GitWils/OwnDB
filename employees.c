@@ -45,9 +45,30 @@ struct employee * addEmployee(char *name)
 	return pempl;
 }
 
+void delEmployee(struct employee *empl)
+{
+	//struct employee * a;
+}
+
 int getCount()
 {
 	return cnt;
+}
+
+
+struct employee * getEmplById(int id)
+{
+	if(id > cnt - 1)
+		return NULL;
+	struct employee *pempl;
+	pempl = phead;
+	for(int i = 1; i < cnt; i++)
+	{
+		pempl = getNext(pempl);
+		if(i == id)
+			return pempl;
+	}
+	return pempl;
 }
 
 void clearEmployee()

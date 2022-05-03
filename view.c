@@ -59,9 +59,12 @@ void showAddMsg()
 	printf("Write the first name:\n");
 }
 
-void showDelMsg()
+void showDelMsg(char *str)
 {
-	printf("Write the number of the employee you want to delete:\n");
+	if(str)
+		printf("Do you realy want to delete \"%s\"?(press y or n) ", str);
+	else
+		printf("Write the number of the employee you want to delete:\n");
 }
 
 void showQuitMsg()
@@ -84,4 +87,15 @@ void showHelpMsg()
 	printf("sort - sorting list by names\n");
 	printf("quit - exit from program\n\n");
 	printf("Make your choice.\n");
+}
+
+
+void showErrorMsg(enum errList eError)
+{
+	switch(eError)
+	{
+		case ER_ID:
+			printf("Error: wrong id number entered\n");
+			break;
+	}
 }

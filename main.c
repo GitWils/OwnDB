@@ -39,10 +39,10 @@ int main(void)
 			switch(eCommand)
 			{
 				case help:					
-					showHelpMsg();
+					showHelpMsg();	
 					break;
 				case list:
-					showListMsg(pobjEmplList);
+					showListMsg(pobjEmplList);	
 					break;
 				case add:
 					showAddMsg();
@@ -52,10 +52,35 @@ int main(void)
 						logAddEmpl(strFName);
 					}
 					break;
-				case sort:
-					break;
 				case del:
-					showDelMsg();
+					showDelMsg(NULL);
+					int id;
+					struct employee *a;
+					while(!scanf("%d", &id))
+					{
+						printf("id must be a number\n");
+						clearBuffer();
+					}
+					clearBuffer();
+					a = getEmplById(id - 1);
+					if(a)
+					{
+						showDelMsg(a->fname);
+						char answer;
+
+						while(!scanf("%c", &answer) || (answer != 'y' && answer != 'n'))
+						{
+							printf("Answer (%c) must be \"y\" or \"n\" keys: ", answer);
+							if(answer == 'y')
+								delEmployee(a);
+							clearBuffer();
+						}
+					}
+					else
+						showErrorMsg(ER_ID);
+					clearBuffer();
+					break;
+				case sort:
 					break;
 				default:
 					break;
