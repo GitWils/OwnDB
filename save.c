@@ -14,7 +14,7 @@ void SaveList(struct employee *empl)
 		return;
 	}
 	rewind(pfile);
-	empl = GetFirst();
+	empl = GetLast();
 	for(int i = 0; i < GetCount(); i++)
 	{
 		long unsigned a;
@@ -22,7 +22,7 @@ void SaveList(struct employee *empl)
 		fwrite(&a, sizeof(long unsigned), 1, pfile);
 		fwrite(empl, sizeof(struct employee) + 
 				sizeof(char)*(int)(strlen(empl->fname)+1), 1, pfile);
-		empl = GetNext(empl); 
+		empl = GetPrev(empl); 
 	}
 
 	fclose(pfile);
@@ -44,7 +44,7 @@ struct employee * LoadList(void)
 	{
 		pempl = malloc(sizeof(struct employee)+a*(int)sizeof(char));
 		fread(pempl, sizeof(struct employee) + sizeof(char)*a, 1, pfile);
-		preturn = AddEmployee(pempl->fname);
+		preturn = AddEmployee(pempl->fname, pempl->form);
 	}
 	fclose(pfile);
 	preturn = GetFirst();

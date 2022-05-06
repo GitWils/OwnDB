@@ -22,8 +22,13 @@ struct employee * GetNext(struct employee *empl)
 	return empl->pnext;
 }
 
+struct employee * GetPrev(struct employee *empl)
+{
+	return empl->pprev;
+}
+
 //add employee to begin
-struct employee * AddEmployee(char *name)
+struct employee * AddEmployee(char *name, int form)
 {
 	struct employee *pempl;
 	size_t name_size;
@@ -37,11 +42,15 @@ struct employee * AddEmployee(char *name)
 	if (pempl == NULL)
 		exit (1);
 	strncpy(pempl->fname, name, 40);
+	pempl->form = form;
 	pempl->pnext = phead;
+	pempl->pprev = NULL;
 	phead = pempl;
-	cnt++;
 	if(pempl->pnext == NULL)
 		ptail = pempl;
+	else
+		pempl->pnext->pprev = pempl;	
+	cnt++;
 	return pempl;
 }
 

@@ -15,17 +15,17 @@ void ShowInvitationMsg(bool first)
 void ShowListMsg(struct employee *empl)
 {
 	empl = GetFirst();
-	printf("+-------+------------------------------------+-----------+\n");
-	printf("|%4s   |%23s             |           |\n", "#", "name");
-	printf("+-------+------------------------------------+-----------+\n");
+	printf("+-------+-----------------------------------+---------+\n");
+	printf("|%4s   |%21s              |%7s  |\n", "#", "name", "group");
+	printf("+-------+-----------------------------------+---------+\n");
 	for(int i = 0; i < GetCount(); i++)
 	{
-		printf("|%4d   |", i + 1);
-		ShowByWidth(empl->fname, 36);
-		printf("|           |\n");
+		printf("|%4d   | ", i + 1);
+		ShowByWidth(empl->fname, 34);
+		printf("|   %2d    |\n", empl->form);
 		empl = GetNext(empl);
 	}
-	printf("+-------+------------------------------------+-----------+\n");
+	printf("+-------+-----------------------------------+---------+\n");
 }
 
 void ShowByWidth(const char *str, int width)

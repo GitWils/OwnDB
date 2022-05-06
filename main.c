@@ -48,7 +48,7 @@ int main(void)
 					ShowAddMsg();
 					if(s_gets(strFName, iFNameLength))
 					{
-						AddEmployee(strFName);
+						AddEmployee(strFName, 3);
 						LogAddEmpl(strFName);
 					}
 					break;
