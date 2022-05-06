@@ -7,23 +7,23 @@ int cnt = 0;
 struct employee *phead = NULL;
 struct employee *ptail = NULL;
 
-struct employee * getFirst()
+struct employee * GetFirst()
 {
 	return phead;
 }
 
-struct employee * getLast()
+struct employee * GetLast()
 {
 	return ptail;
 }
 
-struct employee * getNext(struct employee *empl)
+struct employee * GetNext(struct employee *empl)
 {
 	return empl->pnext;
 }
 
 //add employee to begin
-struct employee * addEmployee(char *name)
+struct employee * AddEmployee(char *name)
 {
 	struct employee *pempl;
 	size_t name_size;
@@ -45,18 +45,18 @@ struct employee * addEmployee(char *name)
 	return pempl;
 }
 
-void delEmployee(struct employee *empl)
+void DelEmployee(struct employee *empl)
 {
 	//struct employee * a;
 }
 
-int getCount()
+int GetCount()
 {
 	return cnt;
 }
 
 
-struct employee * getEmplById(int id)
+struct employee * GetEmplById(int id)
 {
 	if(id > cnt - 1)
 		return NULL;
@@ -64,20 +64,20 @@ struct employee * getEmplById(int id)
 	pempl = phead;
 	for(int i = 1; i < cnt; i++)
 	{
-		pempl = getNext(pempl);
+		pempl = GetNext(pempl);
 		if(i == id)
 			return pempl;
 	}
 	return pempl;
 }
 
-void clearEmployee()
+void ClearEmployee()
 {
 	struct employee *pdel;
 	while(phead->pnext) 
 	{
 		pdel = phead;
-		phead = getNext(phead);
+		phead = GetNext(phead);
 		free(pdel);
 		cnt--;
 	}

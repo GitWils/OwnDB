@@ -15,7 +15,7 @@ char * s_gets(char *st, int n)
 		if(find)
 			*find = '\0';
 		else
-			clearBuffer();
+			ClearBuffer();
 	}
 	//trim stroke
 	n = strlen(st);
@@ -28,7 +28,7 @@ char * s_gets(char *st, int n)
 	return ret_val;
 }
 
-void clearBuffer()
+void ClearBuffer()
 {
 	while(getchar() != '\n')
 		continue;

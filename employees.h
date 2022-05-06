@@ -4,11 +4,11 @@ struct employee {
 	char fname[];
 };
 
-struct employee * getFirst();
-struct employee * getLast();
-struct employee * getNext(struct employee *empl);
-struct employee * addEmployee(char *name);
-void delEmployee(struct employee *empl);
-struct employee * getEmplById(int id);
-int getCount();
-void clearEmployee();
+struct employee * GetFirst();
+struct employee * GetLast();
+struct employee * GetNext(struct employee *empl);
+struct employee * AddEmployee(char *name);
+void DelEmployee(struct employee *empl);
+struct employee * GetEmplById(int id);
+int GetCount();
+void ClearEmployee();

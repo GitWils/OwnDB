@@ -1,6 +1,6 @@
 #pragma once
 
-void saveList(struct employee *empl);
-struct employee * loadList(void);
-void logAddEmpl(char *name);
-void getTimeStamp(char *str);
+void SaveList(struct employee *empl);
+struct employee * LoadList(void);
+void LogAddEmpl(char *name);
+void GetTimeStamp(char *str);

@@ -13,7 +13,7 @@ const char * strCmdList[] = {"help", "list", "add", "del", "sort", "quit"};
 int main(void)
 {	
 	struct employee *pobjEmplList;
-	pobjEmplList = loadList();
+	pobjEmplList = LoadList();
 	const int iCmdLength = 10;
 	char strChoice[iCmdLength];
 	const int iFNameLength = 40;
@@ -21,7 +21,7 @@ int main(void)
 	enum cmdList eCommand;
 	bool bIsCmd = false;
 
-	showInvitationMsg(true);
+	ShowInvitationMsg(true);
 	while(eCommand != quit 
 				&&s_gets(strChoice, iCmdLength) != NULL 
 				&& strChoice[0] != '\0')
@@ -39,46 +39,46 @@ int main(void)
 			switch(eCommand)
 			{
 				case help:					
-					showHelpMsg();	
+					ShowHelpMsg();	
 					break;
 				case list:
-					showListMsg(pobjEmplList);	
+					ShowListMsg(pobjEmplList);	
 					break;
 				case add:
-					showAddMsg();
+					ShowAddMsg();
 					if(s_gets(strFName, iFNameLength))
 					{
-						addEmployee(strFName);
-						logAddEmpl(strFName);
+						AddEmployee(strFName);
+						LogAddEmpl(strFName);
 					}
 					break;
 				case del:
-					showDelMsg(NULL);
+					ShowDelMsg(NULL);
 					int id;
 					struct employee *a;
 					while(!scanf("%d", &id))
 					{
 						printf("id must be a number\n");
-						clearBuffer();
+						ClearBuffer();
 					}
-					clearBuffer();
-					a = getEmplById(id - 1);
+					ClearBuffer();
+					a = GetEmplById(id - 1);
 					if(a)
 					{
-						showDelMsg(a->fname);
+						ShowDelMsg(a->fname);
 						char answer;
 
 						while(!scanf("%c", &answer) || (answer != 'y' && answer != 'n'))
 						{
 							printf("Answer (%c) must be \"y\" or \"n\" keys: ", answer);
 							if(answer == 'y')
-								delEmployee(a);
-							clearBuffer();
+								DelEmployee(a);
+							ClearBuffer();
 						}
 					}
 					else
-						showErrorMsg(ER_ID);
-					clearBuffer();
+						ShowErrorMsg(ER_ID);
+					ClearBuffer();
 					break;
 				case sort:
 					break;
@@ -89,14 +89,14 @@ int main(void)
 		}
 		else
 		{
-			showWrongMsg(strChoice);
+			ShowWrongMsg(strChoice);
 		}
 		if(eCommand != help)
-			showInvitationMsg(true);
+			ShowInvitationMsg(true);
 	}
-	saveList(pobjEmplList);
-	clearEmployee();
-	showQuitMsg();
+	SaveList(pobjEmplList);
+	ClearEmployee();
+	ShowQuitMsg();
 
 	return 0;
 }

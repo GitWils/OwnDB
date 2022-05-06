@@ -4,7 +4,7 @@
 #include "employees.h"
 #include "view.h"
 
-void showInvitationMsg(bool first)
+void ShowInvitationMsg(bool first)
 {
 	if(first)
 		printf("Type a command or help for watching command list:\n");
@@ -12,23 +12,23 @@ void showInvitationMsg(bool first)
 		printf("Type another command or help for watching command list:\n");
 }
 
-void showListMsg(struct employee *empl)
+void ShowListMsg(struct employee *empl)
 {
-	empl = getFirst();
-	printf("------------------------------------------------------\n");
-	printf("|%4s   |%23s                 |\n", "#", "name");
-	printf("------------------------------------------------------\n");
-	for(int i = 0; i < getCount(); i++)
+	empl = GetFirst();
+	printf("+-------+------------------------------------+-----------+\n");
+	printf("|%4s   |%23s             |           |\n", "#", "name");
+	printf("+-------+------------------------------------+-----------+\n");
+	for(int i = 0; i < GetCount(); i++)
 	{
 		printf("|%4d   |", i + 1);
-		showByWidth(empl->fname, 40);
-		printf("|\n");
-		empl = getNext(empl);
+		ShowByWidth(empl->fname, 36);
+		printf("|           |\n");
+		empl = GetNext(empl);
 	}
-	printf("------------------------------------------------------\n");
+	printf("+-------+------------------------------------+-----------+\n");
 }
 
-void showByWidth(const char *str, int width)
+void ShowByWidth(const char *str, int width)
 {
 	int len;
 	len = strlen(str);
@@ -54,30 +54,30 @@ void showByWidth(const char *str, int width)
 	}
 }
 
-void showAddMsg()
+void ShowAddMsg()
 {
 	printf("Write the first name:\n");
 }
 
-void showDelMsg(char *str)
+void ShowDelMsg(char *str)
 {
 	if(str)
-		printf("Do you realy want to delete \"%s\"?(press y or n) ", str);
+		printf("Do you realy want to delete \"%s\"? (press y or n) ", str);
 	else
 		printf("Write the number of the employee you want to delete:\n");
 }
 
-void showQuitMsg()
+void ShowQuitMsg()
 {
 	printf("Program is finished, see you later\n");
 }
 
-void showWrongMsg(char *msg)
+void ShowWrongMsg(char *msg)
 {
 	printf("Unknown command \"%s\".\n", msg);
 }
 
-void showHelpMsg()
+void ShowHelpMsg()
 {
 	printf("List of possible commands:\n\n");
 	printf("help - help menu\n");
@@ -90,7 +90,7 @@ void showHelpMsg()
 }
 
 
-void showErrorMsg(enum errList eError)
+void ShowErrorMsg(enum errList eError)
 {
 	switch(eError)
 	{

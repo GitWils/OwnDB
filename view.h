@@ -3,12 +3,12 @@
 enum errList {ER_ID};
 //enum errList erMsg;
 
-void showHelpMsg();
-void showListMsg(struct employee *empl);
-void showAddMsg();
-void showDelMsg(char *str);
-void showInvitationMsg(bool first);
-void showQuitMsg();
-void showWrongMsg(char *msg);
-void showByWidth(const char *str, int width);
-void showErrorMsg(enum errList error);
+void ShowHelpMsg();
+void ShowListMsg(struct employee *empl);
+void ShowAddMsg();
+void ShowDelMsg(char *str);
+void ShowInvitationMsg(bool first);
+void ShowQuitMsg();
+void ShowWrongMsg(char *msg);
+void ShowByWidth(const char *str, int width);
+void ShowErrorMsg(enum errList error);

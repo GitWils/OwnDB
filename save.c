@@ -5,7 +5,7 @@
 #include "employees.h"
 #include "save.h"
 
-void saveList(struct employee *empl)
+void SaveList(struct employee *empl)
 {
 	FILE *pfile;
 	if((pfile = fopen("empl.dat", "wb")) == NULL)
@@ -14,22 +14,22 @@ void saveList(struct employee *empl)
 		return;
 	}
 	rewind(pfile);
-	empl = getFirst();
-	for(int i = 0; i < getCount(); i++)
+	empl = GetFirst();
+	for(int i = 0; i < GetCount(); i++)
 	{
 		long unsigned a;
 		a = strlen(empl->fname) + 1;
 		fwrite(&a, sizeof(long unsigned), 1, pfile);
 		fwrite(empl, sizeof(struct employee) + 
 				sizeof(char)*(int)(strlen(empl->fname)+1), 1, pfile);
-		empl = getNext(empl); 
+		empl = GetNext(empl); 
 	}
 
 	fclose(pfile);
 	//printf("\nsave.c file was here\n");
 }
 
-struct employee * loadList(void)
+struct employee * LoadList(void)
 {
 	struct employee *pempl, *preturn;
 	FILE *pfile;
@@ -44,14 +44,14 @@ struct employee * loadList(void)
 	{
 		pempl = malloc(sizeof(struct employee)+a*(int)sizeof(char));
 		fread(pempl, sizeof(struct employee) + sizeof(char)*a, 1, pfile);
-		preturn = addEmployee(pempl->fname);
+		preturn = AddEmployee(pempl->fname);
 	}
 	fclose(pfile);
-	preturn = getFirst();
+	preturn = GetFirst();
 	return preturn;
 }
 
-void logAddEmpl(char *name)
+void LogAddEmpl(char *name)
 {
 	fprintf(stderr, "Employee \"%s\" was added successfully\n", name);
 	FILE *pfile;
@@ -62,13 +62,13 @@ void logAddEmpl(char *name)
 	}
 
 	char strTime[30];
-	getTimeStamp(strTime);
+	GetTimeStamp(strTime);
 	fprintf(pfile, "Employee \"%s\" was added %s\n", 
 			name, strTime);
 	fclose(pfile);
 }
 
-void getTimeStamp(char *str)
+void GetTimeStamp(char *str)
 {
 	struct tm *pobjTime;
 	time_t t;
