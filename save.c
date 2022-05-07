@@ -53,18 +53,32 @@ struct employee * LoadList(void)
 
 void LogAddEmpl(char *name)
 {
-	fprintf(stderr, "Employee \"%s\" was added successfully\n", name);
+	char msg[200];
+	char strTime[30];
+	GetTimeStamp(strTime);
+	sprintf(msg, "Employee \"%s\" was added %s\n", name, strTime);
+	SaveToLog(msg);
+}
+
+void LogDelEmpl(char *name)
+{
+	char msg[200];
+	char strTime[30];
+	GetTimeStamp(strTime);
+	sprintf(msg, "Employee \"%s\" was deleted %s\n", name, strTime);
+	SaveToLog(msg);
+}
+
+void SaveToLog(char *str)
+{
+
 	FILE *pfile;
 	if((pfile = fopen("log.txt", "a")) == NULL)
 	{
 		fprintf(stderr, "Can't open file \"log.txt\"\n");
 		return;
 	}
-
-	char strTime[30];
-	GetTimeStamp(strTime);
-	fprintf(pfile, "Employee \"%s\" was added %s\n", 
-			name, strTime);
+	fprintf(pfile, "%s", str);
 	fclose(pfile);
 }
 

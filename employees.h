@@ -8,10 +8,10 @@ struct employee {
 
 struct employee * GetFirst();
 struct employee * GetLast();
-struct employee * GetNext(struct employee *empl);
-struct employee * GetPrev(struct employee *empl);
+struct employee * GetNext(const struct employee *empl);
+struct employee * GetPrev(const struct employee *empl);
 struct employee * AddEmployee(char *name, int form);
 void DelEmployee(struct employee *empl);
-struct employee * GetEmplById(int id);
+struct employee * GetEmplByNum(int id);
 int GetCount();
 void ClearEmployee();

@@ -17,12 +17,12 @@ struct employee * GetLast()
 	return ptail;
 }
 
-struct employee * GetNext(struct employee *empl)
+struct employee * GetNext(const struct employee *empl)
 {
 	return empl->pnext;
 }
 
-struct employee * GetPrev(struct employee *empl)
+struct employee * GetPrev(const struct employee *empl)
 {
 	return empl->pprev;
 }
@@ -45,18 +45,34 @@ struct employee * AddEmployee(char *name, int form)
 	pempl->form = form;
 	pempl->pnext = phead;
 	pempl->pprev = NULL;
-	phead = pempl;
+
 	if(pempl->pnext == NULL)
 		ptail = pempl;
-	else
-		pempl->pnext->pprev = pempl;	
+	if(phead)
+		phead->pprev = pempl;
+	phead = pempl;
 	cnt++;
 	return pempl;
 }
 
 void DelEmployee(struct employee *empl)
 {
-	//struct employee * a;
+	struct employee *next, *prev;
+	next = GetNext(empl);
+	prev = GetPrev(empl);
+
+	if(next)
+		next->pprev = empl->pprev;
+	else
+		ptail = empl->pprev;
+
+	if(prev)
+		prev->pnext = empl->pnext;
+	else 
+		phead = empl->pnext;
+
+	free(empl);
+	cnt--;
 }
 
 int GetCount()
@@ -65,17 +81,20 @@ int GetCount()
 }
 
 
-struct employee * GetEmplById(int id)
+struct employee * GetEmplByNum(int id)
 {
-	if(id > cnt - 1)
+	if(id > cnt)
 		return NULL;
 	struct employee *pempl;
 	pempl = phead;
-	for(int i = 1; i < cnt; i++)
+	if(id > 1)
 	{
-		pempl = GetNext(pempl);
-		if(i == id)
-			return pempl;
+		for(int i = 2; i <= cnt; i++)
+		{
+			pempl = GetNext(pempl);
+			if(i == id)
+				return pempl;
+		}
 	}
 	return pempl;
 }

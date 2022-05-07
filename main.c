@@ -62,18 +62,20 @@ int main(void)
 						ClearBuffer();
 					}
 					ClearBuffer();
-					a = GetEmplById(id - 1);
+					a = GetEmplByNum(id);
 					if(a)
 					{
 						ShowDelMsg(a->fname);
 						char answer;
-
 						while(!scanf("%c", &answer) || (answer != 'y' && answer != 'n'))
 						{
 							printf("Answer (%c) must be \"y\" or \"n\" keys: ", answer);
-							if(answer == 'y')
-								DelEmployee(a);
 							ClearBuffer();
+						}
+						if(answer == 'y')
+						{
+							LogDelEmpl(a->fname);
+							DelEmployee(a);
 						}
 					}
 					else
