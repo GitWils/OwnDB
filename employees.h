@@ -14,4 +14,6 @@ struct employee * AddEmployee(char *name, int form);
 void DelEmployee(struct employee *empl);
 struct employee * GetEmplByNum(int id);
 int GetCount();
+void SwapEmployee(struct employee *a, struct employee *b);
+void SortEmployees();
 void ClearEmployee();

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> // malloc(), free()
 #include <string.h> // strncpy()
+#include <stdbool.h>
 #include "employees.h"
 
 int cnt = 0;
@@ -87,16 +88,98 @@ struct employee * GetEmplByNum(int id)
 		return NULL;
 	struct employee *pempl;
 	pempl = phead;
-	if(id > 1)
+	int i = 1;
+	while(pempl->pnext && i != id)
 	{
-		for(int i = 2; i <= cnt; i++)
-		{
-			pempl = GetNext(pempl);
-			if(i == id)
-				return pempl;
-		}
+		pempl = GetNext(pempl);
+		i++;
 	}
 	return pempl;
+}
+
+void SwapEmployee(struct employee *a, struct employee *b)
+{
+	struct employee *ppreva, *pnexta, *temp;
+	
+	pnexta = a->pnext;
+	ppreva = a->pprev;
+
+	if(GetPrev(a) && GetPrev(a) != b)
+	{
+		temp = GetPrev(a);
+		temp->pnext = b; 	
+	}
+	if(GetNext(a) && GetNext(a) != b)
+	{
+		temp = GetNext(a);
+		temp->pprev = b;
+	}
+	if(GetPrev(b) && GetPrev(b) != a)
+	{
+		temp = GetPrev(b);
+		temp->pnext = a;
+	}
+	if(GetNext(b) && GetNext(b) != a)
+	{
+		temp = GetNext(b);
+		temp->pprev = a;
+	}
+
+	if(b == GetPrev(a)) //b located before a
+	{
+		a->pprev = b->pprev;
+		a->pnext = b;
+		b->pprev = a;
+		b->pnext = pnexta;
+	}
+	else if(b == GetNext(a)) //b located after a
+	{
+		a->pprev = b;
+		a->pnext = b->pnext;
+		b->pprev = ppreva;
+		b->pnext = a;
+	}
+	else //a and b are not neighbors
+	{
+		a->pprev = b->pprev;
+		a->pnext = b->pnext;
+		b->pprev = ppreva;
+		b->pnext = pnexta;
+	}
+
+	if(a->pprev == NULL)	
+		phead = a;		
+	else if(b->pprev == NULL)
+		phead = b;
+	if(a->pnext == NULL)
+		ptail = a;
+	else if(b->pnext == NULL)
+		ptail = b;
+}
+
+void SortEmployees()
+{
+	bool changes;
+	struct employee *current, *next;
+	do
+	{
+		changes = false;
+		current = phead;
+		//next = GetNext(current);
+		while(current->pnext)
+		{
+			next = GetNext(current);
+			if(strcmp(current->fname, next->fname) > 0)
+			{
+				SwapEmployee(current, next);
+				changes = true;
+			}
+			else
+			{
+				current = next;
+			}
+		}
+	} while(changes);
 }
 
 void ClearEmployee()

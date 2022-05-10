@@ -83,6 +83,7 @@ int main(void)
 					ClearBuffer();
 					break;
 				case sort:
+					SortEmployees();
 					break;
 				default:
 					break;
