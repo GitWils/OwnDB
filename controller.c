@@ -25,7 +25,6 @@ char * s_gets(char *st, int n)
 		*(st+n) = '\0';
 		n--;
 	}
-	//ClearGarbage(st);
 	return ret_val;
 }
 
@@ -33,18 +32,4 @@ void ClearBuffer()
 {
 	while(getchar() != '\n')
 		continue;
-}
-
-//clearing garbage fron utf8 characters
-//that 
-void ClearGarbage(char *str)
-{
-	int garbages = 0;
-	for(int i = 0; i < strlen(str); i++)
-	{
-		if(str[i] == '\320' || str[i] == '\321')
-			garbages++;
-		else
-			str[i - garbages] = str[i];
-	}
 }

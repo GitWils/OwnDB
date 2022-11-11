@@ -17,21 +17,17 @@ void SaveList(struct employee *empl)
 	empl = GetLast();
 	for(int i = 0; i < GetCount(); i++)
 	{
-		long unsigned a;
-		a = strlen(empl->fname) + 1;
-		fwrite(&a, sizeof(long unsigned), 1, pfile);
-		fwrite(empl, sizeof(struct employee) + 
-				sizeof(char)*(int)(strlen(empl->fname)+1), 1, pfile);
+		fwrite(empl, sizeof(struct employee), 1, pfile);
 		empl = GetPrev(empl); 
 	}
 
 	fclose(pfile);
-	//printf("\nsave.c file was here\n");
 }
 
 struct employee * LoadList(void)
 {
-	struct employee *pempl, *preturn;
+	struct employee *preturn;	
+	struct employee empl;
 	FILE *pfile;
 	if((pfile = fopen("empl.dat", "rb")) == NULL)
 	{
@@ -39,12 +35,9 @@ struct employee * LoadList(void)
 		return NULL;
 	}
 	rewind(pfile);
-	long unsigned a;
-	while(fread(&a, sizeof(unsigned long), 1, pfile))
+	while(fread(&empl, sizeof(struct employee), 1, pfile))
 	{
-		pempl = malloc(sizeof(struct employee)+a*(int)sizeof(char));
-		fread(pempl, sizeof(struct employee) + sizeof(char)*a, 1, pfile);
-		preturn = AddEmployee(pempl->fname, pempl->form);
+		preturn = AddEmployee(empl.fname, empl.form);
 	}
 	fclose(pfile);
 	preturn = GetFirst();
@@ -84,10 +77,14 @@ void SaveToLog(char *str)
 
 void GetTimeStamp(char *str)
 {
-	struct tm *pobjTime;
 	time_t t;
-	t = time(NULL);
+	struct tm *pobjTime;
+	//must use next line in FreeBSD
+	t = time(NULL); 
+	//or next line worked in Linux (UBUNTU)
+	//time(&t);
 	pobjTime = localtime(&t);
+	//printf("\ntime is %s\n", asctime(pobjTime));
 	sprintf(str, "%d.%d.%d %d:%d:%d",
 			pobjTime->tm_mday, pobjTime->tm_mon,pobjTime->tm_year + 1900, 
 			pobjTime->tm_hour, pobjTime->tm_min, pobjTime->tm_sec);

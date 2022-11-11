@@ -14,7 +14,7 @@ int main(void)
 {	
 	struct employee *pobjEmplList;
 	pobjEmplList = LoadList();
-	const int iCmdLength = 10;
+	const int iCmdLength = 20;
 	char strChoice[iCmdLength];
 	const int iFNameLength = 40;
 	char strFName[iFNameLength];

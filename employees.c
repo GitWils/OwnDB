@@ -32,17 +32,12 @@ struct employee * GetPrev(const struct employee *empl)
 struct employee * AddEmployee(char *name, int form)
 {
 	struct employee *pempl;
-	size_t name_size;
-	name_size = strlen(name)+1;
-	if(name_size > 40)	
-	{
-		*(name+39) = '\0';
-		name_size = 40;
-	}	
-	pempl = malloc(sizeof(struct employee)+name_size*sizeof(char));
+
+	pempl = malloc(sizeof(struct employee));
 	if (pempl == NULL)
 		exit (1);
-	strncpy(pempl->fname, name, 40);
+
+	strncpy(pempl->fname, name, MAX_EMPL_NAME);
 	pempl->form = form;
 	pempl->pnext = phead;
 	pempl->pprev = NULL;
@@ -52,8 +47,9 @@ struct employee * AddEmployee(char *name, int form)
 	if(phead)
 		phead->pprev = pempl;
 	phead = pempl;
+	pempl = NULL;
 	cnt++;
-	return pempl;
+	return phead;
 }
 
 void DelEmployee(struct employee *empl)
@@ -184,6 +180,8 @@ void SortEmployees()
 
 void ClearEmployee()
 {
+	if(!GetCount())
+		return;
 	struct employee *pdel;
 	while(phead->pnext) 
 	{
